@@ -27,7 +27,7 @@ import java.util.List;
         @NotNull
         private Double pricePerNight;
         @NotNull
-        private ApartmentDestinationType destinationType;
+        private String destinationType;
         @NotNull
         private List<String> images;
 

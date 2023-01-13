@@ -1,9 +1,6 @@
 package rs.ac.singidunum.apartment.service;
 
-import rs.ac.singidunum.apartment.model.Apartment;
-import rs.ac.singidunum.apartment.model.CreateApartmentModel;
-import rs.ac.singidunum.apartment.model.FavoriteApmts;
-import rs.ac.singidunum.apartment.model.RequestDestinationType;
+import rs.ac.singidunum.apartment.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +14,7 @@ public interface IApartmentService {
     List<Apartment> ApartmentPriceLimit(Double from, Double to);
     List<Apartment> ApartmentDestinationFilter (RequestDestinationType type);
     List<Apartment> GetUserApartments(Integer id);
+    List<CreateApartmentModel> ApartmentReservations(RequestUserReservations apartmentsId);
 
 
 

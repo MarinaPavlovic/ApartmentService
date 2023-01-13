@@ -5,10 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import rs.ac.singidunum.apartment.model.Apartment;
-import rs.ac.singidunum.apartment.model.CreateApartmentModel;
-import rs.ac.singidunum.apartment.model.FavoriteApmts;
-import rs.ac.singidunum.apartment.model.RequestDestinationType;
+import rs.ac.singidunum.apartment.model.*;
 import rs.ac.singidunum.apartment.service.IApartmentService;
 
 import javax.validation.Valid;
@@ -24,9 +21,9 @@ public class ApartmentController {
         this.apartmentService = apartmentService;
     }
 
-    @GetMapping("get/by/id")
+    @GetMapping("{id}")
     @CrossOrigin("*")
-    public Apartment GetApartmentById (Integer id){
+    public Apartment GetApartmentById (@PathVariable Integer id){
         return apartmentService.GetApartmentById(id);
     }
 
@@ -77,6 +74,11 @@ public class ApartmentController {
     public List<Apartment> GetApartmentDestinationType (@RequestBody RequestDestinationType type){
 
         return apartmentService.ApartmentDestinationFilter(type);
+    }
+    @PostMapping("reservations")
+    @CrossOrigin("*")
+    public List<CreateApartmentModel> GetApartmentReservations(@RequestBody RequestUserReservations apartmentsId){
+        return apartmentService.ApartmentReservations(apartmentsId);
     }
 
 

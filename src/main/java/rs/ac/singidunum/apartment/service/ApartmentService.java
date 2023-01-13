@@ -44,8 +44,8 @@ public class ApartmentService implements IApartmentService {
     @Override
     @Transactional
     public Apartment CreateApartment(CreateApartmentModel apartment) {
-
-        ApartmentEntity apartmentEntity = new ApartmentEntity(apartment.getId(), apartment.getUserId(), apartment.getName(), apartment.getDescription(), apartment.getAdres(), apartment.getPricePerNight(), apartment.getDestinationType());
+        ApartmentDestinationType destinationType= ApartmentDestinationType.valueOf(apartment.getDestinationType());
+        ApartmentEntity apartmentEntity = new ApartmentEntity(apartment.getId(), apartment.getUserId(), apartment.getName(), apartment.getDescription(), apartment.getAdres(), apartment.getPricePerNight(), destinationType);
         apartmentEntity = apartmentRepository.save(apartmentEntity);
         apartment.setId(apartmentEntity.getId());
 
@@ -61,7 +61,8 @@ public class ApartmentService implements IApartmentService {
 
     @Override
     public Apartment EditApartment(CreateApartmentModel apartment) {
-        ApartmentEntity apartmentEntity = new ApartmentEntity(apartment.getId(), apartment.getUserId(), apartment.getName(), apartment.getDescription(), apartment.getAdres(), apartment.getPricePerNight(), apartment.getDestinationType());
+        ApartmentDestinationType destinationType= ApartmentDestinationType.valueOf(apartment.getDestinationType());
+        ApartmentEntity apartmentEntity = new ApartmentEntity(apartment.getId(), apartment.getUserId(), apartment.getName(), apartment.getDescription(), apartment.getAdres(), apartment.getPricePerNight(), destinationType);
         apartmentEntity = apartmentRepository.save(apartmentEntity);
         for(String img: apartment.getImages() ){
             apartmentImgService.Create(img,apartment.getId());
@@ -121,6 +122,24 @@ public class ApartmentService implements IApartmentService {
         List<ApartmentEntity> apartmentEntities = apartmentRepository.HostApartments(id);
         List<Apartment> apartments = getApartmentImg(apartmentEntities);
         return apartments;
+    }
+
+    @Override
+    public List<CreateApartmentModel> ApartmentReservations(RequestUserReservations apartmentsId) {
+        List<CreateApartmentModel> apartmants = new ArrayList<CreateApartmentModel>();
+        for(Integer i :apartmentsId.getId()){
+            Apartment apartment=GetApartmentById(i);
+            String destType= apartment.getDestinationType().name();
+            List<String> url=new ArrayList<String>();
+            for(ApartmentImages apI:apartment.getImages()){
+                url.add(apI.getImageURL());
+            }
+            CreateApartmentModel apartmentModel=new CreateApartmentModel(apartment.getId(),apartment.getUserId(),apartment.getName(),apartment.getDescription(),apartment.getAdres(),apartment.getPricePerNight(),destType,url);
+            apartmants.add(apartmentModel);
+        }
+
+
+        return apartmants;
     }
 
 
