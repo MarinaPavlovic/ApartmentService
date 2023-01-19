@@ -17,4 +17,6 @@ public interface IApartmentRepository extends JpaRepository<ApartmentEntity, Int
 
     @Query(nativeQuery = true, value = "SELECT * FROM apartmants WHERE user_id= :userId")
     List<ApartmentEntity> HostApartments (@Param("userId") Integer userId);
+
+
 }

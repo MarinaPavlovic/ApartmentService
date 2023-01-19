@@ -27,7 +27,7 @@ public class ApartmentService implements IApartmentService {
             return null;
         }
         List<ApartmentImages> apartmentImages = apartmentImgService.GetImagesByApartmentID(id);
-        Apartment apartment = new Apartment(apartmentEntity.get().getId(), apartmentEntity.get().getUserId(), apartmentEntity.get().getName(), apartmentEntity.get().getDescription(), apartmentEntity.get().getAdres(), apartmentEntity.get().getPricePerNight(), apartmentEntity.get().getDestinationType(), apartmentImages);
+        Apartment apartment = new Apartment(apartmentEntity.get().getId(), apartmentEntity.get().getUserId(), apartmentEntity.get().getName(), apartmentEntity.get().getDescription(),apartmentEntity.get().getCountry(),apartmentEntity.get().getCity() ,apartmentEntity.get().getAdres(), apartmentEntity.get().getPricePerNight(), apartmentEntity.get().getDestinationType(), apartmentImages);
         return apartment;
     }
 
@@ -35,7 +35,7 @@ public class ApartmentService implements IApartmentService {
         List<Apartment> apartments = new ArrayList<Apartment>();
         for (ApartmentEntity ap : apartmentEntities) {
             List<ApartmentImages> apartmentImages = apartmentImgService.GetImagesByApartmentID(ap.getId());
-            Apartment apartment = new Apartment(ap.getId(), ap.getUserId(), ap.getName(), ap.getDescription(), ap.getAdres(), ap.getPricePerNight(), ap.getDestinationType(), apartmentImages);
+            Apartment apartment = new Apartment(ap.getId(), ap.getUserId(), ap.getName(), ap.getDescription(),ap.getCountry(),ap.getCity(), ap.getAdres(), ap.getPricePerNight(), ap.getDestinationType(), apartmentImages);
             apartments.add(apartment);
         }
         return apartments;
@@ -45,7 +45,7 @@ public class ApartmentService implements IApartmentService {
     @Transactional
     public Apartment CreateApartment(CreateApartmentModel apartment) {
         ApartmentDestinationType destinationType= ApartmentDestinationType.valueOf(apartment.getDestinationType());
-        ApartmentEntity apartmentEntity = new ApartmentEntity(apartment.getId(), apartment.getUserId(), apartment.getName(), apartment.getDescription(), apartment.getAdres(), apartment.getPricePerNight(), destinationType);
+        ApartmentEntity apartmentEntity = new ApartmentEntity(apartment.getId(), apartment.getUserId(), apartment.getName(), apartment.getDescription(), apartment.getCountry(), apartment.getCity(), apartment.getAdres(), apartment.getPricePerNight(), destinationType);
         apartmentEntity = apartmentRepository.save(apartmentEntity);
         apartment.setId(apartmentEntity.getId());
 
@@ -54,7 +54,7 @@ public class ApartmentService implements IApartmentService {
         }
         List<ApartmentImages> images = apartmentImgService.GetImagesByApartmentID(apartment.getId());
 
-        Apartment newApartment= new Apartment(apartmentEntity.getId(),apartmentEntity.getUserId(), apartmentEntity.getName(),apartmentEntity.getDescription(), apartmentEntity.getAdres(),apartmentEntity.getPricePerNight(),apartmentEntity.getDestinationType(), images );
+        Apartment newApartment= new Apartment(apartmentEntity.getId(),apartmentEntity.getUserId(), apartmentEntity.getName(),apartmentEntity.getDescription(), apartment.getCountry(), apartment.getCity(), apartmentEntity.getAdres(),apartmentEntity.getPricePerNight(),apartmentEntity.getDestinationType(), images );
 
         return newApartment;
     }
@@ -62,13 +62,13 @@ public class ApartmentService implements IApartmentService {
     @Override
     public Apartment EditApartment(CreateApartmentModel apartment) {
         ApartmentDestinationType destinationType= ApartmentDestinationType.valueOf(apartment.getDestinationType());
-        ApartmentEntity apartmentEntity = new ApartmentEntity(apartment.getId(), apartment.getUserId(), apartment.getName(), apartment.getDescription(), apartment.getAdres(), apartment.getPricePerNight(), destinationType);
+        ApartmentEntity apartmentEntity = new ApartmentEntity(apartment.getId(), apartment.getUserId(), apartment.getName(), apartment.getDescription(), apartment.getCountry(), apartment.getCity(), apartment.getAdres(), apartment.getPricePerNight(), destinationType);
         apartmentEntity = apartmentRepository.save(apartmentEntity);
         for(String img: apartment.getImages() ){
             apartmentImgService.Create(img,apartment.getId());
         }
         List<ApartmentImages> apartmentImages = apartmentImgService.GetImagesByApartmentID(apartment.getId());
-        Apartment changedApartment = new Apartment(apartmentEntity.getId(), apartmentEntity.getUserId(), apartmentEntity.getName(), apartmentEntity.getDescription(), apartmentEntity.getAdres(), apartmentEntity.getPricePerNight(), apartmentEntity.getDestinationType(), apartmentImages);
+        Apartment changedApartment = new Apartment(apartmentEntity.getId(), apartmentEntity.getUserId(), apartmentEntity.getName(), apartmentEntity.getDescription(), apartmentEntity.getCountry(), apartment.getCity(), apartmentEntity.getAdres(), apartmentEntity.getPricePerNight(), apartmentEntity.getDestinationType(), apartmentImages);
         return changedApartment;
     }
 
@@ -134,7 +134,7 @@ public class ApartmentService implements IApartmentService {
             for(ApartmentImages apI:apartment.getImages()){
                 url.add(apI.getImageURL());
             }
-            CreateApartmentModel apartmentModel=new CreateApartmentModel(apartment.getId(),apartment.getUserId(),apartment.getName(),apartment.getDescription(),apartment.getAdres(),apartment.getPricePerNight(),destType,url);
+            CreateApartmentModel apartmentModel=new CreateApartmentModel(apartment.getId(),apartment.getUserId(),apartment.getName(),apartment.getDescription(), apartment.getCountry(), apartment.getCity(), apartment.getAdres(),apartment.getPricePerNight(),destType,url);
             apartmants.add(apartmentModel);
         }
 

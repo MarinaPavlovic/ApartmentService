@@ -30,6 +30,14 @@ public class ApartmentEntity {
     @NotNull
     @NotBlank
     private String description;
+    @NotNull
+    @NotBlank
+    @Column(name = "country")
+    private String country;
+    @NotNull
+    @NotBlank
+    @Column(name = "city")
+    private String city;
     @Column(name = "adres")
     @NotNull
     @NotBlank
