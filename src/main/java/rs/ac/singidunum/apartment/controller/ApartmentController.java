@@ -1,6 +1,5 @@
 package rs.ac.singidunum.apartment.controller;
 
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -9,7 +8,6 @@ import rs.ac.singidunum.apartment.model.*;
 import rs.ac.singidunum.apartment.service.IApartmentService;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -45,9 +43,9 @@ public class ApartmentController {
         return new ResponseEntity<Apartment>(apartmentService.EditApartment(apartment), HttpStatus.OK) ;
     }
 
-    @GetMapping("delete")
+    @DeleteMapping("{id}")
     @CrossOrigin("*")
-    public void DeleteApartment (Integer id){
+    public void DeleteApartment (@PathVariable("id") Integer id){
         apartmentService.DeleteApartment(id);
     }
 
@@ -79,6 +77,12 @@ public class ApartmentController {
     @CrossOrigin("*")
     public List<CreateApartmentModel> GetApartmentReservations(@RequestBody RequestUserReservations apartmentsId){
         return apartmentService.ApartmentReservations(apartmentsId);
+    }
+
+    @CrossOrigin("*")
+    @DeleteMapping("delete/all/{userId}")
+    public void DeleteAllUsersApartments(@PathVariable("userId") Integer userId){
+        apartmentService.deleteApartmentsWhenUserIsDelete(userId);
     }
 
 

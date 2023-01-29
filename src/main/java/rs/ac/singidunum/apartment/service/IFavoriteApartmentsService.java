@@ -10,5 +10,5 @@ import java.util.Optional;
 public interface IFavoriteApartmentsService {
     List<Apartment> GetFavoriteApmts(Integer userId);
     void AddFavoriteApartment (FavoriteApmts apartment);
-    void DeleteFavoriteApmts (Integer id);
+    void DeleteFavoriteApmts (FavoriteApmts favoriteApmts);
 }

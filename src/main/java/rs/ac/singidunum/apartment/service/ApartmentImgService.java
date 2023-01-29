@@ -39,9 +39,15 @@ public class ApartmentImgService implements IApartmentImgService{
 
     }
 
+
     @Override
     public List<ApartmentImages> GetImagesByApartmentID(Integer apartmentId) {
         List<ApartmentImagesEntity> imagesList=apartmentImagesRepository.ImagesByApartmentId(apartmentId);
         return imagesList.stream().map(ApartmentImagesEntity -> new ApartmentImages(ApartmentImagesEntity.getId(),ApartmentImagesEntity.getApartmentId(),ApartmentImagesEntity.getImageURL())).toList();
+    }
+
+    @Override
+    public void DeleteApartmentImg(Integer apartmentId) {
+        apartmentImagesRepository.DeleteApartmentImages(apartmentId);
     }
 }

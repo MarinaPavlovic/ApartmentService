@@ -21,6 +21,8 @@ public class FavoriteApartmentsServise implements IFavoriteApartmentsService{
         this.apartmentService = apartmentService;
     }
 
+
+
     @Override
     public List<Apartment> GetFavoriteApmts(Integer userId) {
         List<FavoriteApmtsEntity> favoriteApmtsEntities=favoriteAmptsRepository.GetFavoriteApmpts(userId);
@@ -54,7 +56,10 @@ public class FavoriteApartmentsServise implements IFavoriteApartmentsService{
     }
 
     @Override
-    public void DeleteFavoriteApmts(Integer id) {
-        favoriteAmptsRepository.deleteById(id);
+    public void DeleteFavoriteApmts(FavoriteApmts favoriteApmts) {
+
+        Integer apmtId=favoriteAmptsRepository.GetFavoriteApmtId(favoriteApmts.getUserId(), favoriteApmts.getApartmentId());
+        favoriteAmptsRepository.deleteById(apmtId);
+
     }
 }

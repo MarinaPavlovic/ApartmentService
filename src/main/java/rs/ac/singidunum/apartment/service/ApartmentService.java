@@ -73,8 +73,11 @@ public class ApartmentService implements IApartmentService {
     }
 
     @Override
+    @Transactional
     public void DeleteApartment(Integer id) {
+        apartmentImgService.DeleteApartmentImg(id);
         apartmentRepository.deleteById(id);
+
     }
 
     @Override
@@ -140,6 +143,15 @@ public class ApartmentService implements IApartmentService {
 
 
         return apartmants;
+    }
+
+    @Override
+    @Transactional
+    public void deleteApartmentsWhenUserIsDelete(Integer userId) {
+        List<ApartmentEntity> usersApartments = apartmentRepository.HostApartments(userId);
+        for(ApartmentEntity ap: usersApartments){
+            DeleteApartment(ap.getId());
+        }
     }
 
 

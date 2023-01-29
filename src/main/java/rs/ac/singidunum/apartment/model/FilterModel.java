@@ -12,5 +12,8 @@ import java.util.List;
 public class FilterModel {
     private List<String> countries;
     private List<String> cities;
+    private Integer sort;
+    private ApartmentDestinationType destinationType;
+
 
 }

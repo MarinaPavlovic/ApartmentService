@@ -1,6 +1,7 @@
 package rs.ac.singidunum.apartment.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import rs.ac.singidunum.apartment.entity.ApartmentEntity;
@@ -17,6 +18,7 @@ public interface IApartmentRepository extends JpaRepository<ApartmentEntity, Int
 
     @Query(nativeQuery = true, value = "SELECT * FROM apartmants WHERE user_id= :userId")
     List<ApartmentEntity> HostApartments (@Param("userId") Integer userId);
+
 
 
 }

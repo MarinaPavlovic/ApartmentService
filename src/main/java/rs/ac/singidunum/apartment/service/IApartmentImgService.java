@@ -10,6 +10,7 @@ public interface IApartmentImgService {
     ApartmentImages Create (String apartmentImg , Integer apartmentId);
     void Delete (Integer id);
     List<ApartmentImages> GetImagesByApartmentID (Integer apartmentId);
+    void DeleteApartmentImg (Integer apartmentId);
 
 
 }

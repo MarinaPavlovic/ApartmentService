@@ -10,4 +10,8 @@ import java.util.List;
 public interface IFavoriteAmptsRepository extends JpaRepository<FavoriteApmtsEntity, Integer> {
     @Query(nativeQuery = true, value = "SELECT * FROM favorite_apartments WHERE user_id = :userId")
     List<FavoriteApmtsEntity> GetFavoriteApmpts(@Param("userId") Integer userId);
+
+    @Query(nativeQuery = true, value = "SELECT id FROM favorite_apartments WHERE(user_id= :userId AND apartment_id= :apartmentId)")
+    Integer GetFavoriteApmtId (@Param("userId") Integer userId, @Param("apartmentId") Integer apartmentId);
+
 }

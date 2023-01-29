@@ -1,7 +1,6 @@
 package rs.ac.singidunum.apartment.controller;
 
 import org.springframework.web.bind.annotation.*;
-import rs.ac.singidunum.apartment.entity.FavoriteApmtsEntity;
 import rs.ac.singidunum.apartment.model.Apartment;
 import rs.ac.singidunum.apartment.model.FavoriteApmts;
 import rs.ac.singidunum.apartment.service.IFavoriteApartmentsService;
@@ -31,8 +30,8 @@ public class FavoriteApartmentsController {
     }
 
     @CrossOrigin("*")
-    @DeleteMapping("{id}")
-    public void DeleteFavoriteApartment (@PathVariable("id") Integer id){
-        favoriteApartmentsService.DeleteFavoriteApmts(id);
+    @PostMapping("delete")
+    public void DeleteFavoriteApartment (@RequestBody FavoriteApmts favoriteApmts){
+        favoriteApartmentsService.DeleteFavoriteApmts(favoriteApmts);
     }
 }

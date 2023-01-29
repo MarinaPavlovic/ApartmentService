@@ -15,6 +15,7 @@ public interface IApartmentService {
     List<Apartment> ApartmentDestinationFilter (RequestDestinationType type);
     List<Apartment> GetUserApartments(Integer id);
     List<CreateApartmentModel> ApartmentReservations(RequestUserReservations apartmentsId);
+    void deleteApartmentsWhenUserIsDelete (Integer id);
 
 
 
